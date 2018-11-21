@@ -1,12 +1,11 @@
 package com.danverem.stores.controllers;
 
-import com.danverem.stores.utils.ErrorResponse;
 import com.danverem.stores.models.User;
 import com.danverem.stores.services.UserService;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -52,10 +51,7 @@ public class UserController {
                 .build();
         }
 
-        return Response
-            .status(Response.Status.NOT_FOUND)
-            .entity(new ErrorResponse("User not found"))
-            .build();
+        throw new EntityNotFoundException("User not found");
     }
 
     @PUT
@@ -67,10 +63,7 @@ public class UserController {
              return Response.ok().entity(editedUser).build();
          }
 
-        return Response
-            .status(Response.Status.NOT_FOUND)
-            .entity(new ErrorResponse("User not found"))
-            .build();
+        throw new EntityNotFoundException("User not found");
     }
 
     @DELETE

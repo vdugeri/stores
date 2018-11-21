@@ -12,7 +12,7 @@ public class EntityNotFoundExceptionMapper implements ExceptionMapper<EntityNotF
     public Response toResponse(EntityNotFoundException exception) {
         return Response
             .status(Response.Status.NOT_FOUND)
-            .entity(new ErrorResponse("Not found"))
+            .entity(new ErrorResponse(exception.getMessage()))
             .build();
     }
 }
