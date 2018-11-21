@@ -42,7 +42,7 @@ public class PasswordHash implements Hash {
         Matcher matcher = layout.matcher(token);
 
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("Invalid password");
+            throw new RuntimeException();
         }
 
         int iterations = iterations(Integer.parseInt(matcher.group(1)));
