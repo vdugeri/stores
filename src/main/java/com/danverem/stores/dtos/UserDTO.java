@@ -6,7 +6,8 @@ public class UserDTO {
     private String emailAddress;
     private String firstName;
     private String lastName;
-    private String intials;
+    private String initials;
+    private Long ID;
 
     public String getUsername() {
         return username;
@@ -48,11 +49,19 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public String getIntials() {
-        return intials;
+    public String getInitials() {
+        return initials;
     }
 
-    public void setIntials(String intials) {
-        this.intials = intials;
+    public void setInitials(String initials) {
+        this.initials = initials;
+    }
+
+    public Long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
     }
 }

@@ -1,5 +1,7 @@
 package com.danverem.stores.controllers;
 
+import com.danverem.stores.dtos.PaginatedResource;
+import com.danverem.stores.dtos.UserDTO;
 import com.danverem.stores.models.User;
 import com.danverem.stores.services.UserService;
 import javax.ejb.LocalBean;
@@ -23,8 +25,16 @@ public class UserController {
     private UserService userService;
 
     @GET
-    public Response index() {
-        List<User> users  = userService.getAll();
+    public Response index(@QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
+        if (limit == null) {
+            limit = 50;
+        }
+
+        if (offset == null) {
+            offset = 0;
+        }
+
+        PaginatedResource<UserDTO> users  = userService.getAll(limit, offset);
 
         return Response.ok().entity(users).build();
     }
