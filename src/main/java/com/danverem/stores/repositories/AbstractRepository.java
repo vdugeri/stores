@@ -1,5 +1,7 @@
 package com.danverem.stores.repositories;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -14,6 +16,8 @@ import java.util.Set;
  *
  * @param <T>
  */
+@Stateless
+@LocalBean
 public abstract class AbstractRepository<T> {
     private Class<T> entityClass;
 
