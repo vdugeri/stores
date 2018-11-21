@@ -27,17 +27,8 @@ public class User {
     @Column(name = "initials")
     private String initials;
 
-
-    public User(String username, String password, String firstName, String lastName, String initials) {
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.initials = initials;
-    }
-
-    public User() {
-    }
+    @Column(name = "email_address")
+    private String emailAddress;
 
     public Long getID() {
         return ID;
@@ -87,6 +78,14 @@ public class User {
         this.initials = initials;
     }
 
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,12 +96,13 @@ public class User {
             Objects.equals(getPassword(), user.getPassword()) &&
             Objects.equals(getFirstName(), user.getFirstName()) &&
             Objects.equals(getLastName(), user.getLastName()) &&
-            Objects.equals(getInitials(), user.getInitials());
+            Objects.equals(getInitials(), user.getInitials()) &&
+            Objects.equals(getEmailAddress(), user.getEmailAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getID(), getUsername(), getPassword(), getFirstName(), getLastName(), getInitials());
+        return Objects.hash(getID(), getUsername(), getPassword(), getFirstName(), getLastName(), getInitials(), getEmailAddress());
     }
 
     @Override
@@ -114,6 +114,7 @@ public class User {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", initials='" + initials + '\'' +
+            ", emailAddress='" + emailAddress +
             '}';
     }
 }

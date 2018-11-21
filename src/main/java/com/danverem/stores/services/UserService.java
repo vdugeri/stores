@@ -49,11 +49,17 @@ public class UserService {
      * @author Verem Dugeri <verem.dugeri@gmail.com>
      *
      * @param user User to edit
+     * @param ID user id
      *
      * @return edited user
      */
-    public User edit(User user) {
-        return userRepository.edit(user);
+    public Optional<User> edit(Long ID, User user) {
+        Optional<User> userToEdit = find(ID);
+        if (userToEdit.isPresent()) {
+            return Optional.ofNullable(userRepository.edit(user));
+        }
+
+        return userToEdit;
     }
 
     /**
