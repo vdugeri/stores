@@ -1,7 +1,11 @@
 package com.danverem.stores.services;
 
+import com.danverem.stores.dtos.PaginatedResource;
+import com.danverem.stores.dtos.UserDTO;
+import com.danverem.stores.mappers.UserMapper;
 import com.danverem.stores.models.User;
 import com.danverem.stores.repositories.UserRepository;
+import com.danverem.stores.utils.PaginationMetadata;
 import com.danverem.stores.utils.PasswordHash;
 
 import javax.ejb.LocalBean;
@@ -21,8 +25,23 @@ public class UserService {
      *
      * @return List of users
      */
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public PaginatedResource<UserDTO> getAll(int limit, int offset) {
+        List<User> users = userRepository.findWithLimitAndOffset(limit, offset);
+        int userCount = userRepository.count();
+        int pages = (int) Math.ceil(userCount / limit) + 1;
+        int currPage = (int) Math.floor( offset / limit) + 1;
+
+        PaginationMetadata metadata = new PaginationMetadata();
+        metadata.setCurrPage(currPage);
+        metadata.setPages(pages);
+        metadata.setTotal(userCount);
+        metadata.setPerPage(limit);
+
+        PaginatedResource<UserDTO> paginatedResource = new PaginatedResource<>();
+        paginatedResource.setData(UserMapper.mapTo(users));
+        paginatedResource.setMeta(metadata);
+
+        return paginatedResource;
     }
 
     /**
