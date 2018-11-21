@@ -1,11 +1,11 @@
-package com.danverem.stores.dtos;
+package com.danverem.stores.utils;
 
-public class NotFoundDTO {
+public class ErrorResponse {
 
     private String status;
     private String message;
 
-    public NotFoundDTO(String message) {
+    public ErrorResponse(String message) {
         this.message = message;
         this.status = "error";
     }

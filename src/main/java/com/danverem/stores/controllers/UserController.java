@@ -1,6 +1,6 @@
 package com.danverem.stores.controllers;
 
-import com.danverem.stores.dtos.NotFoundDTO;
+import com.danverem.stores.utils.ErrorResponse;
 import com.danverem.stores.models.User;
 import com.danverem.stores.services.UserService;
 
@@ -54,7 +54,7 @@ public class UserController {
 
         return Response
             .status(Response.Status.NOT_FOUND)
-            .entity(new NotFoundDTO("User not found"))
+            .entity(new ErrorResponse("User not found"))
             .build();
     }
 
@@ -69,7 +69,7 @@ public class UserController {
 
         return Response
             .status(Response.Status.NOT_FOUND)
-            .entity(new NotFoundDTO("User not found"))
+            .entity(new ErrorResponse("User not found"))
             .build();
     }
 

@@ -5,7 +5,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users")
+@NamedQueries({
+    @NamedQuery( name = User.FIND_BY_USERNAME, query = "SELECT u FROM User u WHERE u.username = :username")
+})
 public class User {
+
+    public static final String FIND_BY_USERNAME = "User.findByUsername";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
