@@ -2,6 +2,7 @@ package com.danverem.stores.services;
 
 import com.danverem.stores.models.User;
 import com.danverem.stores.repositories.UserRepository;
+import com.danverem.stores.utils.PasswordHash;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -32,6 +33,7 @@ public class UserService {
      * @return created user
      */
     public User create(User user) {
+        user.setPassword((new PasswordHash()).hash(user.getPassword().toCharArray()));
         return userRepository.create(user);
     }
 
