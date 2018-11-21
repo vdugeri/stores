@@ -2,6 +2,7 @@ package com.danverem.stores.controllers;
 
 import com.danverem.stores.dtos.UserLogin;
 import com.danverem.stores.dtos.UserToken;
+import com.danverem.stores.exceptions.InvalidCredentialsException;
 import com.danverem.stores.services.AuthService;
 
 import javax.ejb.LocalBean;
@@ -35,9 +36,6 @@ public class AuthController {
             return Response.ok().entity(token).build();
         }
 
-        return Response
-            .status(Response.Status.UNAUTHORIZED)
-            .entity(new InvalidCredentials())
-            .build();
+        throw new InvalidCredentialsException("Invalid user credentials");
     }
 }
