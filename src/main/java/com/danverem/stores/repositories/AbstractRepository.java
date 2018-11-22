@@ -4,6 +4,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -45,7 +46,7 @@ public abstract class AbstractRepository<T> {
      *
      * @return created entity
      */
-    public T create(T entity) {
+    public T create(T entity) throws PersistenceException {
         getEntityManager().persist(entity);
         getEntityManager().flush();
 

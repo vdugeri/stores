@@ -9,6 +9,9 @@ public class StoreDTO implements Serializable {
     private String address;
     private String accountCode;
 
+    public StoreDTO() {
+    }
+
     public StoreDTO(String name, String address, String accountCode) {
         this.name = name;
         this.address = address;

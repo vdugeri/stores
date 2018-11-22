@@ -2,6 +2,8 @@ package com.danverem.stores.controllers;
 
 import com.danverem.stores.dtos.PaginatedResource;
 import com.danverem.stores.dtos.StoreDTO;
+import com.danverem.stores.exceptions.NameAlreadyTakenException;
+import com.danverem.stores.exceptions.TakenException;
 import com.danverem.stores.mappers.StoreMapper;
 import com.danverem.stores.models.Store;
 import com.danverem.stores.services.StoreService;
@@ -33,7 +35,7 @@ public class StoreController {
     }
 
     @POST
-    public Response store(StoreDTO storeDTO) {
+    public Response store(StoreDTO storeDTO) throws TakenException {
         Store store = storeService.create(storeDTO);
 
         return Response

@@ -1,18 +1,23 @@
 package com.danverem.stores.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "stores")
+@NamedQueries({
+    @NamedQuery(name = Store.FIND_BY_NAME, query = "SELECT s FROM Store s WHERE s.name = :name"),
+    @NamedQuery(name = Store.FIND_BY_CODE, query = "SELECT s FROM Store s WHERE s.accountCode = :code")
+})
 public class Store implements Serializable {
+
+    public static final String FIND_BY_NAME = "Store.findByName";
+    public static final String FIND_BY_CODE = "Store.findByCode";
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
     @Column(name = "name")
@@ -21,7 +26,7 @@ public class Store implements Serializable {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "account_code")
+    @Column(name = "account_code", unique = true)
     private String accountCode;
 
 
