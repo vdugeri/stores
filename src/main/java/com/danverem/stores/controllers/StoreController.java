@@ -2,7 +2,6 @@ package com.danverem.stores.controllers;
 
 import com.danverem.stores.dtos.PaginatedResource;
 import com.danverem.stores.dtos.StoreDTO;
-import com.danverem.stores.exceptions.NameAlreadyTakenException;
 import com.danverem.stores.exceptions.TakenException;
 import com.danverem.stores.mappers.StoreMapper;
 import com.danverem.stores.models.Store;
