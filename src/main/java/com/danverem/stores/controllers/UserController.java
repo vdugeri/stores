@@ -11,7 +11,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 import java.util.Optional;
 
 @Path("/users")
@@ -25,15 +24,7 @@ public class UserController {
     private UserService userService;
 
     @GET
-    public Response index(@QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
-        if (limit == null) {
-            limit = 50;
-        }
-
-        if (offset == null) {
-            offset = 0;
-        }
-
+    public Response index(@DefaultValue("50") @QueryParam("limit") Integer limit, @DefaultValue("0") @QueryParam("offset") Integer offset) {
         PaginatedResource<UserDTO> users  = userService.getAll(limit, offset);
 
         return Response.ok().entity(users).build();
