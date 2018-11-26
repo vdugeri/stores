@@ -2,9 +2,6 @@ package com.danverem.stores.services;
 
 import com.danverem.stores.dtos.PaginatedResource;
 import com.danverem.stores.dtos.StoreDTO;
-import com.danverem.stores.exceptions.CodeAlreadyTakenException;
-import com.danverem.stores.exceptions.NameAlreadyTakenException;
-import com.danverem.stores.exceptions.TakenException;
 import com.danverem.stores.mappers.StoreMapper;
 import com.danverem.stores.models.Store;
 import com.danverem.stores.repositories.StoreRepository;
@@ -14,6 +11,7 @@ import com.danverem.stores.validators.StoreRequestValidator;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -58,7 +56,7 @@ public class StoreService {
         return Optional.ofNullable(storeRepository.find(ID));
     }
 
-    public Store create(StoreDTO store) throws TakenException {
+    public Store create(StoreDTO store) throws EntityExistsException {
         String error = storeRequestValidator.validateName(store);
         String codeError = storeRequestValidator.validateAccountCode(store);
 
@@ -67,10 +65,10 @@ public class StoreService {
         }
 
         if (codeError != null) {
-            throw new CodeAlreadyTakenException(codeError);
+            throw new EntityExistsException(codeError);
         }
 
-        throw new NameAlreadyTakenException(error);
+        throw new EntityExistsException(error);
     }
 
     public Store edit(Long ID, StoreDTO storeDTO) {

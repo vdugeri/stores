@@ -2,7 +2,6 @@ package com.danverem.stores.controllers;
 
 import com.danverem.stores.dtos.PaginatedResource;
 import com.danverem.stores.dtos.StoreDTO;
-import com.danverem.stores.exceptions.TakenException;
 import com.danverem.stores.mappers.StoreMapper;
 import com.danverem.stores.models.Store;
 import com.danverem.stores.services.StoreService;
@@ -10,6 +9,7 @@ import com.danverem.stores.services.StoreService;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -34,7 +34,7 @@ public class StoreController {
     }
 
     @POST
-    public Response store(StoreDTO storeDTO) throws TakenException {
+    public Response store(StoreDTO storeDTO) throws EntityExistsException {
         Store store = storeService.create(storeDTO);
 
         return Response
